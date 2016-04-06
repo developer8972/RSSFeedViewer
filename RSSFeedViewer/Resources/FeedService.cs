@@ -13,6 +13,7 @@ namespace RSSFeedViewer
 			List<Data>  mItems = new List<Data>();
 		try
 			{
+				
 			WebRequest webRequest = WebRequest.Create(url);
 			WebResponse webResponse = webRequest.GetResponse();
 
@@ -65,6 +66,8 @@ namespace RSSFeedViewer
 					{
 						data.Content = data.Description;
 						}
+
+					mItems.Add(data);
 
 	}
 			}

@@ -5,6 +5,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Android.Webkit;
+using KinveyXamarin;
+using SQLite.Net.Platform.XamarinAndroid;
+using System.Xml.Serialization;
+
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -13,8 +18,11 @@ namespace RSSFeedViewer
 	[Activity (Label = "RSSFeedViewer", MainLauncher = true, Icon = "@mipmap/icon")]
 	public class MainActivity : Activity
 	{
+		
 		private List<Data> mItems;
-		private ListView listView;
+		WebView web_view;
+
+		private  ListView listView;
 		private ProgressDialog progressDialog;
 
 		protected override void OnCreate (Bundle savedInstanceState)
@@ -29,6 +37,12 @@ namespace RSSFeedViewer
 
 				GetFeedItemsList ();
 		}
+
+
+
+
+
+
 			private void GetFeedItemsList(){
 			this.progressDialog.Show ();
 			Task <List<Data>> task1 =  Task.Factory.StartNew(() =>{return FeedService.GetFeedItems("http://feeds.feedburner.com/androidcentral?format=xml");}
@@ -56,11 +70,24 @@ namespace RSSFeedViewer
 			this.listView.Adapter = adapter;
 			this.listView.ItemClick += OnListItemClick; 
 
+
 		}
 		protected void OnListItemClick(object sender, AdapterView.ItemClickEventArgs  e)
 		{
+
 			var t = mItems[e.Position];
-			Android.Widget.Toast.MakeText(this,"I am working",Android.Widget.ToastLength.Short).Show();
+
+//			Intent i = new Intent(Application.Context, typeof(TrialWorks));
+////			XmlSerializer xml = new XmlSerializer(typeof(t.Link));
+//
+//			i.PutExtra ("items", t.Link);
+//			StartActivity (i);
+			web_view = FindViewById<WebView> (Resource.Id.webview);
+			web_view.Settings.JavaScriptEnabled = true;
+			web_view.LoadUrl (t.Link);
+
+		
+			//Android.Widget.Toast.MakeText(this,t.Link,Android.Widget.ToastLength.Short).Show();
 				}
 				}
 	}

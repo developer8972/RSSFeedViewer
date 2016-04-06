@@ -9,11 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/title"
+        android:layout_marginLeft="20dp"
         android:layout_weight="50" />
     <TextView
         android:text="pubDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
         android:layout_weight="50"
         android:id="@+id/pubDate" />
 </LinearLayout>
